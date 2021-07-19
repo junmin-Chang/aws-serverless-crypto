@@ -8,7 +8,6 @@ See the License for the specific language governing permissions and limitations 
 
 
 
-
 var express = require('express')
 var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
@@ -29,7 +28,21 @@ app.use(function(req, res, next) {
 /**********************
  * Example get method *
  **********************/
+const axios = require('axios')
 
+app.get('/coins', function (req,res) {
+  let apiURL = `https://api.coinlore.com/api/tickers?start=0&limit=10`
+
+  if (req.apiGateway && req.apiGateway.event.queryStringParameters) {
+    const { start = 0, limit = 10 } = req.apiGateway.event.queryStringParameters
+    apiURL = `https://api.coinlore.com/api/tickers/?start=${start}&limit=${limit}`
+  }
+  axios.get(apiURL)
+      .then(res => {
+        res.json({ coins: res.data.data })
+      })
+      .catch(err => res.json({ error: err }))
+})
 app.get('/item', function(req, res) {
   // Add your code here
   res.json({success: 'get call succeed!', url: req.url});
