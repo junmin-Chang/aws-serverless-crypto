@@ -15,7 +15,7 @@
       "function": {
         "cryptofunction": {
           "deploymentBucketName": "amplify-serverless-dev-184559-deployment",
-          "s3Key": "amplify-builds/cryptofunction-2f613631534847577843-build.zip"
+          "s3Key": "amplify-builds/cryptofunction-466167526471744d6649-build.zip"
         }
       }
     }
